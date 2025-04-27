@@ -22,7 +22,6 @@ gulp.task("styles", function () {
     .pipe(sass({ outputStyle: "compressed" }).on("error", sass.logError))
     .pipe(rename({ suffix: ".min", prefix: "" }))
     .pipe(postcss([autoprefixer({
-      cascade: false
     })])) // Используем postcss для autoprefixer
     .pipe(cleanCSS({ compatibility: "ie8" }))
     .pipe(gulp.dest("src/css"))
