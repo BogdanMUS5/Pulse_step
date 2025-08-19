@@ -83,4 +83,67 @@ $(document).ready(function () {
       $(".overlay, #order").fadeIn("slow");
     });
   });
+
+  function validateForms(form) {
+    $(form).validate({
+      rules: {
+        name: "required",
+        phone: "required",
+        email: {
+          required: true,
+          email: true,
+        },
+      },
+      messages: {
+        name: "Введи имя ебанат",
+        phone: "Введи номер дура",
+        email: {
+          required: "Почта дура",
+          email: "Введи верно ее дура",
+        },
+      },
+    });
+  }
+  validateForms("#consultation-form");
+  validateForms("#consultation form");
+  validateForms("#order form");
+  $("input[name=phone]").mask("+7 (999) 999-999");
+
+  $("form").submit(function (e) {
+    e.preventDefault();
+    if (!$(this).valid()) {
+      return;
+    }
+
+    $.ajax({
+      type: "POST",
+      url: "mailer/smart.php",
+      data: $(this).serialize(),
+    }).done(function () {
+      $(this).find("input").val("");
+      $("#consultation, #order").fadeOut();
+      $(".overlay, #thank").fadeIn("slow");
+      $("form").trigger("reset");
+    });
+    return false;
+  });
+  //scrolll up
+  $(window).scroll(function () {
+    if ($(this).scrollTop() > 1600) {
+      $(".pageup").fadeIn();
+    } else {
+      $(".pageup").fadeOut();
+    }
+  });
+  $("a[href^='#']").on("click", function (e) {
+    e.preventDefault();
+
+    let target = $(this).attr("href");
+    let offset = $(target).offset().top; // позиция блока по оси Y
+
+    $("html, body").animate(
+      { scrollTop: offset },
+      800 // скорость прокрутки (мс)
+    );
+  });
 });

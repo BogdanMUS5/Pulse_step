@@ -39,11 +39,21 @@
     font-size: 14px;
     font-weight: 500;
   }
-  &_mini{
+  &_mini {
     min-height: 143px;
+  }
+  .error {
+    border: 1px solid rgb(255, 0, 0);
+  }
+  label.error {
+    border: none;
+    text-align: center;
+    margin-bottom: 15px;
   }
 }
 
-#consultation, #order, #thank{
-    display: none;
+#consultation,
+#order,
+#thank {
+  display: none;
 }
